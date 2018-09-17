@@ -21,7 +21,7 @@ nodes=4
 i=1
 
 #Establish local network
-Link = request.LAN("lan")
+link = request.Link("Link")
 
 while i<=nodes:
 	# Add a VM to the request.
@@ -41,7 +41,7 @@ while i<=nodes:
 	iface.addAddress(rspec.IPv4Address("192.168.1."+str(i), "255.255.255.0")
 	
 	#Link nodes together
-	Link.addInterface(iface)
+	link.addInterface(iface)
 	
 	# Install and execute a script that is contained in the repository.
 	node.addService(pg.Execute(shell="sh", command="/local/repository/silly.sh"))
