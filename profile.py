@@ -52,9 +52,9 @@ while i<numNodes:
 	iface.addAddress(rspec.IPv4Address("192.168.1."+str(i), "255.255.255.0")
 
 #Establish local network
-link = request.Link("Link")
+link = request.Link(members)
 #Link nodes together
-link.addLink(members)
+#link.addLink(members)
 
 # Print the RSpec to the enclosing page.
 pc.printRequestRSpec(request)
