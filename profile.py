@@ -20,9 +20,9 @@ request = pc.makeRequestRSpec()
 numNodes=4
 nodes = list()
 
-for x in range(numNodes):
-    # Add a VM to the request, i+1 since i starts at 0
-    nodes.append(request.XenVM("node-"+str(i+1)))
+for num in range(numNodes):
+    # Add a VM to the request, num+1 since num starts at 0
+    nodes.append(request.XenVM("node-"+str(num+1)))
 #establish local network for VM's to communicate
 link = request.LAN("LAN")
 #add counter
