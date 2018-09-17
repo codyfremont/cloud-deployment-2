@@ -34,14 +34,14 @@ while i<=nodes:
 		node.routable_control_ip = True
 	
 	#add interface
-	iface = node.addInterface("if"+str(i))
+	iface1 = node.addInterface("if"+str(i))
 	#add interface eth1, will be same for all nodes
-	iface.component_id = "eth1"
+	iface1.component_id = "eth1"
 	#set IP per VM
-	iface.addAddress(rspec.IPv4Address("192.168.1."+str(i), "255.255.255.0")
+	iface1.addAddress(rspec.IPv4Address("192.168.1."+str(i), "255.255.255.0")
 	
 	#Link nodes together
-	link.addInterface(iface)
+	link.addInterface(iface1)
 	
 	# Install and execute a script that is contained in the repository.
 	node.addService(pg.Execute(shell="sh", command="/local/repository/silly.sh"))
