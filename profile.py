@@ -21,7 +21,7 @@ nodes=4
 i=1
 
 #Establish local network
-link = request.LAN("Test")
+link = request.LAN("lan")
 
 while i<=nodes:
 	# Add a VM to the request.
