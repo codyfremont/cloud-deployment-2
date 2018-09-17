@@ -25,7 +25,7 @@ link = request.LAN("Test")
 
 while i<=nodes:
 	# Add a VM to the request.
-	node = request.XenVm("node-"+str(i))
+	node = request.XenVM("node-"+str(i))
 	#Install CentOS7-STD
 	node.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:CENTOS7-64-STD"
 	
