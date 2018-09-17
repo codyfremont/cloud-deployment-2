@@ -23,14 +23,14 @@ i=1
 #Establish local network
 link = request.LAN("Test")
 
-while(i<=nodes):
+while i<=nodes:
 	# Add a VM to the request.
 	node = request.XenVm("node-"+str(i))
 	#Install CentOS7-STD
 	node.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:CENTOS7-64-STD"
 	
 	#add public IP for first node
-	if (i=1):
+	if i=1:
 		node.routable_control_ip = True
 	
 	#add interface
