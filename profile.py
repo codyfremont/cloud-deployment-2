@@ -18,43 +18,40 @@ request = pc.makeRequestRSpec()
 
 #Establish number of nodes wanted
 numNodes=4
-nodes = [0] * numNodes
-#Memeber for links
-members = [0] * numNodes
+nodes = list()
 
+for x in range(numNodes):
+    # Add a VM to the request, i+1 since i starts at 0
+    nodes.append(request.XenVM("node-"+str(i+1)))
+#establish local network for VM's to communicate
+link = request.LAN("LAN")
 #add counter
 i=0
-while i<numNodes:
-	# Add a VM to the request.
-	nodes[i] = request.XenVM("node-"+str(i+1))
+for node in nodes:
+	
 	#Install CentOS7-STD
-	nodes[i].disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:CENTOS7-64-STD"
-
-    #add node to members
-	members[i] = nodes[i]
-
-    # Install and execute a script that is contained in the repository.
-	nodes[i].addService(pg.Execute(shell="sh", command="/local/repository/silly.sh"))
+	nodes.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:CENTOS7-64-STD"
 	
 	#add public IP for first node
-	if i==1:
-		nodes[i].routable_control_ip = True
+	if i==0:
+		node.routable_control_ip = True
 
-	#add interface
-	iface = nodes[i].addInterface("if"+str(i+1))
-	#add interface eth1, will be same for all nodes
+    	# Install and execute a script that is contained in the repository.
+	nodes[i].addService(pg.Execute(shell="sh", command="/local/repository/silly.sh"))
+
+	#add interface, will be same for all nodes
+	iface = node.addInterface("if1")
+    	#add interface eth1, will be same for all nodes
 	iface.component_id = "eth1"
+    	#set IP per VM, i+1 since i starts at 0
+	iface.addAddress(pg.IPv4Address("192.168.1."+str(i+1),"255.255.255.0"))
 
-    #increment i for next node
+    	#add iface to LAN link
+	link.addInterface(iface)
+
+    	#increment i for next node
 	i+=1
 
-	#set IP per VM
-	iface.addAddress(rspec.IPv4Address("192.168.1."+str(i), "255.255.255.0")
-
-#Establish local network
-link = request.Link(members)
-#Link nodes together
-#link.addLink(members)
 
 # Print the RSpec to the enclosing page.
 pc.printRequestRSpec(request)
@@ -62,3 +59,4 @@ pc.printRequestRSpec(request)
 #commands found at
 #http://docs.cloudlab.us/
 #https://groups.google.com/forum/#!forum/cloudlab-users
+#Help from Alex Leventhal with Linking issue, and cleaning up loops / lists
