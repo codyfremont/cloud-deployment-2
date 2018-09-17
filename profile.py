@@ -30,14 +30,14 @@ i=0
 for node in nodes:
 	
 	#Install CentOS7-STD
-	nodes.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:CENTOS7-64-STD"
+	node.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:CENTOS7-64-STD"
 	
 	#add public IP for first node
 	if i==0:
 		node.routable_control_ip = True
 
     	# Install and execute a script that is contained in the repository.
-	nodes[i].addService(pg.Execute(shell="sh", command="/local/repository/silly.sh"))
+	node.addService(pg.Execute(shell="sh", command="/local/repository/silly.sh"))
 
 	#add interface, will be same for all nodes
 	iface = node.addInterface("if1")
