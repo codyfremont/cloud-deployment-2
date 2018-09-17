@@ -30,7 +30,7 @@ while i<=nodes:
 	node.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:CENTOS7-64-STD"
 	
 	#add public IP for first node
-	if i=1:
+	if i==1:
 		node.routable_control_ip = True
 	
 	#add interface
